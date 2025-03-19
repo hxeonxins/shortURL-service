@@ -1,5 +1,6 @@
 package kr.co.shortenUrlService.application;
 
+import kr.co.shortenUrlService.domain.NotFoundShortenUrlException;
 import kr.co.shortenUrlService.domain.ShortenUrl;
 import kr.co.shortenUrlService.domain.ShortenUrlRepository;
 import kr.co.shortenUrlService.presentation.ShortenUrlCreateRequestDto;
@@ -41,6 +42,10 @@ public class SimpleShortenUrlService {
 
   public ShortenUrlInformationDto getShortenUrlInformationByShortenUrlKey(String shortenUrlKey) {
     ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+    if(shortenUrl == null) {
+      throw new NotFoundShortenUrlException();
+    }//예외 처리
+
     ShortenUrlInformationDto shortenUrlInformationDto = new ShortenUrlInformationDto(shortenUrl);
     return shortenUrlInformationDto;
   }
@@ -48,6 +53,9 @@ public class SimpleShortenUrlService {
   public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
     ShortenUrl shortenUrl =  shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
 
+    if(shortenUrl == null) {
+      throw new NotFoundShortenUrlException();
+    }//예외 처리. handler 필요
 //    shortenUrl.setRedirectCount(shortenUrl.getRedirectCount() + 1); //set은 도메인의 필드 값을 바꿔버리는 메서드 -> 사용지양
     shortenUrl.increaseRedirectCount();
     shortenUrlRepository.saveShortenUrl(shortenUrl);
