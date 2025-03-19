@@ -1,5 +1,6 @@
 package kr.co.shortenUrlService.presentation;
 
+import kr.co.shortenUrlService.domain.LackOfShortenUrlKeyException;
 import kr.co.shortenUrlService.domain.NotFoundShortenUrlException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,5 +15,12 @@ public class GlobalExceptionHandler {
           NotFoundShortenUrlException e
   ) {
     return new ResponseEntity<>("shortenUrl was not found : ", HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(LackOfShortenUrlKeyException.class)
+  public ResponseEntity<?> handleLackOfShortenUrlKeyException(
+    LackOfShortenUrlKeyException e
+  ){
+    return  new ResponseEntity<>("Lack Of shorten Url: ", HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

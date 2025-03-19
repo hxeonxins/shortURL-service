@@ -1,5 +1,6 @@
 package kr.co.shortenUrlService.application;
 
+import kr.co.shortenUrlService.domain.LackOfShortenUrlKeyException;
 import kr.co.shortenUrlService.domain.NotFoundShortenUrlException;
 import kr.co.shortenUrlService.domain.ShortenUrl;
 import kr.co.shortenUrlService.domain.ShortenUrlRepository;
@@ -28,6 +29,17 @@ public class SimpleShortenUrlService {
     //원래 URL과 단축 URL키 생성
     String originalUrl = shortenUrlCreateRequestDto.getOriginalUrl();
     String shortenUrlKey = ShortenUrl.generateShortenedUrl();
+
+    //이미 생성된 키인지 확인
+    int i = 5;
+    while(shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey) != null && i-- >0){
+      System.out.println("Short Url Key was already exist: ");
+      shortenUrlKey = ShortenUrl.generateShortenedUrl();
+    }
+    if(shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey) != null){
+      throw new LackOfShortenUrlKeyException();
+    }
+
 
     //원래 URL과 단축 URL 키를 통해 ShortenURL 도메인 객체 생성
     ShortenUrl shortenUrl = new ShortenUrl(originalUrl, shortenUrlKey);
