@@ -26,8 +26,11 @@ public class ShortenUrlRestController {
 
   //2. get 매핑으로 원본주소
   @GetMapping("/{shortenUrlKey}")
-  public ResponseEntity<?> redirectToShortenUrl() {
-    return ResponseEntity.ok().body(null);
+  public ResponseEntity<?> redirectToShortenUrl(
+          @PathVariable String shortenUrlKey
+  ) {
+    String originalUrl = simpleShortenUrlService.getOriginalUrlByShortenUrlKey(shortenUrlKey);
+    return ResponseEntity.ok();
   }
 
   //3. url 몇번 바꿨는지에 대한 정보 조회
@@ -36,7 +39,7 @@ public class ShortenUrlRestController {
           @PathVariable String shortenUrlKey
   ){
     ShortenUrlInformationDto shortenUrlInformationDto =
-            simpleShortenUrlService.getShortenUrlInfotmationByShortenUrlKey(shortenUrlKey);
-    return ResponseEntity.ok().body(null);
+            simpleShortenUrlService.getShortenUrlInformationByShortenUrlKey(shortenUrlKey);
+    return ResponseEntity.ok(shortenUrlInformationDto);
   }
 }

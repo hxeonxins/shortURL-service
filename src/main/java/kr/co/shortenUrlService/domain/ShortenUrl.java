@@ -29,4 +29,12 @@ public class ShortenUrl {
   public String getShortenUrlKey() {
     return shortenedUrlKey;
   }
+
+  public String getOriginalUrl() {
+    return originalUrl;
+  }
+
+  public Long getRedirectCount() {
+    return redirectCount;
+  }
 }

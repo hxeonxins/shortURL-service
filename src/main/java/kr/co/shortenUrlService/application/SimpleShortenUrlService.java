@@ -34,15 +34,23 @@ public class SimpleShortenUrlService {
     //생성된 ShortenURL을 레포지토리를 통해 저장
     shortenUrlRepository.saveShortenUrl(shortenUrl);
 
-
-
     //ShortenURL을 ShortenUrlCreatResponseDto로 변환하여 최종 반환
-
-    return null;
+    ShortenUrlCreateResponseDto shortenUrlCreateResponseDto = new ShortenUrlCreateResponseDto(shortenUrl);
+    return shortenUrlCreateResponseDto;
   }
 
-  public ShortenUrlInformationDto getShortenUrlInfotmationByShortenUrlKey(String shortenUrlKey) {
-    ShortenUrlInformationDto shortenUrlInformationDto = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+  public ShortenUrlInformationDto getShortenUrlInformationByShortenUrlKey(String shortenUrlKey) {
+    ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+    ShortenUrlInformationDto shortenUrlInformationDto = new ShortenUrlInformationDto(shortenUrl);
+    return shortenUrlInformationDto;
+  }
 
+  public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
+    ShortenUrl shortenUrl =  shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
+
+    shortenUrl.setRedirectCount(shortenUrl.getRedirectCount() + 1);
+
+    shortenUrl.getOriginalUrl();
+    return null;
   }
 }
