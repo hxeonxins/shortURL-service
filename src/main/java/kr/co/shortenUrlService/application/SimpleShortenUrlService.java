@@ -48,9 +48,9 @@ public class SimpleShortenUrlService {
   public String getOriginalUrlByShortenUrlKey(String shortenUrlKey) {
     ShortenUrl shortenUrl =  shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
 
-    shortenUrl.setRedirectCount(shortenUrl.getRedirectCount() + 1);
-
-    shortenUrl.getOriginalUrl();
-    return null;
+//    shortenUrl.setRedirectCount(shortenUrl.getRedirectCount() + 1); //set은 도메인의 필드 값을 바꿔버리는 메서드 -> 사용지양
+    shortenUrl.increaseRedirectCount();
+    shortenUrlRepository.saveShortenUrl(shortenUrl);
+    return shortenUrl.getOriginalUrl();
   }
 }
