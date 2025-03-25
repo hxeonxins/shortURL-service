@@ -1,6 +1,7 @@
 package kr.co.shortenUrlService.application;
 
 import kr.co.shortenUrlService.domain.LackOfShortenUrlKeyException;
+import kr.co.shortenUrlService.domain.NotFoundShortenUrlException;
 import kr.co.shortenUrlService.domain.ShortenUrlRepository;
 import kr.co.shortenUrlService.presentation.ShortenUrlCreateRequestDto;
 import org.junit.jupiter.api.Assertions;
@@ -46,5 +47,20 @@ class SimpleShortenUrlServiceUnitTest {
       simpleShortenUrlService.generateShortenUrl(shortenUrlCreateRequestDto);
     });
 
+  }
+
+  @Test
+  @DisplayName("NotFoundException 코드")
+  void throwNotFoundException() {
+    //given
+    String invalidShortenUrlKey = "invalidKey";
+
+    //when
+    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any())).thenReturn(null);
+
+    //then
+    Assertions.assertThrows(NotFoundShortenUrlException.class, () -> {
+      simpleShortenUrlService.getOriginalUrlByShortenUrlKey(invalidShortenUrlKey);
+    });
   }
 }
