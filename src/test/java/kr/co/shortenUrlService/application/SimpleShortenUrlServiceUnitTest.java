@@ -39,7 +39,8 @@ class SimpleShortenUrlServiceUnitTest {
 
     //when: 주어진 것으로 어떤 것을 했을 때
     //여기에 목 객체의 수행흐름을 적어줘야 한다.
-    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any())).thenReturn(new ShortenUrl(null, null));
+    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any()))
+            .thenReturn(new ShortenUrl(null, null));
 
 
     //then: 기대하는 결과값이 나왔는지
