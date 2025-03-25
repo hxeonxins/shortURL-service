@@ -28,7 +28,7 @@ public class SimpleShortenUrlService {
 
     //원래 URL과 단축 URL키 생성
     String originalUrl = shortenUrlCreateRequestDto.getOriginalUrl();
-    String shortenUrlKey = ShortenUrl.generateShortenedUrl();
+    String shortenUrlKey = getUniqueShortenUrlKey();
 
     //원래 URL과 단축 URL 키를 통해 ShortenURL 도메인 객체 생성
     ShortenUrl shortenUrl = new ShortenUrl(originalUrl, shortenUrlKey);
@@ -65,7 +65,7 @@ public class SimpleShortenUrlService {
 
   //서비스에 핵심 기능만 구현되도록 private 추가
   //이미 생성된 키인지 확인
-  private void getUniqueShortenUrlKey() {
+  private String getUniqueShortenUrlKey() {
     int i = 5;
     String shortenUrlKey = ShortenUrl.generateShortenedUrl();
     while(shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey) != null && i-- >0){
@@ -75,5 +75,6 @@ public class SimpleShortenUrlService {
     if(shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey) != null){
       throw new LackOfShortenUrlKeyException();
     }
+    return shortenUrlKey;
   }
 }

@@ -2,6 +2,7 @@ package kr.co.shortenUrlService.application;
 
 import kr.co.shortenUrlService.domain.LackOfShortenUrlKeyException;
 import kr.co.shortenUrlService.domain.NotFoundShortenUrlException;
+import kr.co.shortenUrlService.domain.ShortenUrl;
 import kr.co.shortenUrlService.domain.ShortenUrlRepository;
 import kr.co.shortenUrlService.presentation.ShortenUrlCreateRequestDto;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +24,6 @@ class SimpleShortenUrlServiceUnitTest {
   //목 객체를 생성
   @Mock
   private ShortenUrlRepository shortenUrlRepository;
-
   //목을 주입받는 진짜 서비스 객체
   @InjectMocks
   private SimpleShortenUrlService simpleShortenUrlService;
@@ -39,7 +39,7 @@ class SimpleShortenUrlServiceUnitTest {
 
     //when: 주어진 것으로 어떤 것을 했을 때
     //여기에 목 객체의 수행흐름을 적어줘야 한다.
-    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any())).thenReturn(null, null);
+    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any())).thenReturn(new ShortenUrl(null, null));
 
 
     //then: 기대하는 결과값이 나왔는지
