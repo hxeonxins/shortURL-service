@@ -21,7 +21,7 @@ class SimpleShortenUrlServiceUnitTest {
 
   //목 객체를 생성
   @Mock
-  private ShortenUrlRepository shortenUrlService;
+  private ShortenUrlRepository shortenUrlRepository;
 
   //목을 주입받는 진짜 서비스 객체
   @InjectMocks
