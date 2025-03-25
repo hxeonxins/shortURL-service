@@ -38,7 +38,7 @@ class SimpleShortenUrlServiceTest {
 
     //then: 기대하는 결과값이 나왔는지
     //expected url == original url
-    assertThat(originalUrl).isEqualTo(expectedOriginalUrl);
+    assertThat(originalUrl).isEqualTo(expectedOriginalUrl); //제일 많이 씀
     assertEquals(originalUrl, expectedOriginalUrl);
     assertTrue(originalUrl.equals(expectedOriginalUrl));
   }
